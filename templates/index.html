@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#102b50">
+
+    <title>SMK Negeri 2 | Website Sekolah</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f5f7fb;
+            color: #243247;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: #102b50;
+            color: white;
+            padding: 16px 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            background: white;
+            color: #102b50;
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+        }
+
+        .brand h2 {
+            font-size: 17px;
+        }
+
+        .brand p {
+            font-size: 11px;
+            color: #c8d6e8;
+        }
+
+        nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .hero {
+            min-height: 460px;
+            padding: 85px 8%;
+            display: flex;
+            align-items: center;
+            color: white;
+            background:
+                linear-gradient(90deg, rgba(9, 31, 59, .95),
+                    rgba(9, 31, 59, .55)),
+                url("https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=1600") center/cover;
+        }
+
+        .hero-content {
+            max-width: 650px;
+        }
+
+        .hero small {
+            color: #b9d6ff;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .hero h1 {
+            font-size: clamp(34px, 5vw, 54px);
+            line-height: 1.2;
+            margin: 18px 0;
+        }
+
+        .hero p {
+            color: #e1eaf5;
+            max-width: 560px;
+        }
+
+        .hero a {
+            display: inline-block;
+            margin-top: 27px;
+            padding: 13px 24px;
+            background: #e8a93b;
+            color: #142b48;
+            border-radius: 8px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .section {
+            padding: 70px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            color: #102b50;
+            font-size: 30px;
+        }
+
+        .section-title p {
+            color: #758195;
+            font-size: 14px;
+        }
+
+        .about {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            border-radius: 16px;
+        }
+
+        .about h3 {
+            color: #102b50;
+            font-size: 25px;
+            margin-bottom: 14px;
+        }
+
+        .about p {
+            color: #657187;
+            margin-bottom: 12px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 23px;
+        }
+
+        .card {
+            background: white;
+            padding: 28px;
+            border-radius: 15px;
+            box-shadow: 0 5px 22px rgba(20, 40, 70, .06);
+        }
+
+        .card-icon {
+            font-size: 32px;
+            margin-bottom: 13px;
+        }
+
+        .card h3 {
+            color: #102b50;
+            margin-bottom: 9px;
+        }
+
+        .card p {
+            color: #758195;
+            font-size: 14px;
+        }
+
+        footer {
+            background: #0b1e38;
+            color: #d7e1ee;
+            padding: 35px 8%;
+            text-align: center;
+        }
+
+        /* MODAL PERSETUJUAN LOKASI */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(8, 20, 40, .78);
+            backdrop-filter: blur(7px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-overlay[hidden] {
+            display: none;
+        }
+
+        .modal-box {
+            width: 100%;
+            max-width: 430px;
+            background: white;
+            border-radius: 22px;
+            padding: 32px 28px;
+            text-align: center;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, .3);
+        }
+
+        .modal-icon {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: #e8f0ff;
+            color: #2563eb;
+            display: grid;
+            place-items: center;
+            font-size: 32px;
+            margin: 0 auto 18px;
+        }
+
+        .modal-box h2 {
+            color: #142b48;
+            font-size: 25px;
+            margin: 10px 0;
+        }
+
+        .modal-description {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .agreement {
+            display: flex;
+            gap: 10px;
+            text-align: left;
+            color: #475569;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+        .agreement input {
+            margin-top: 3px;
+        }
+
+        #continueButton {
+            width: 100%;
+            border: none;
+            border-radius: 11px;
+            padding: 14px;
+            color: white;
+            background: #2563eb;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #continueButton:disabled {
+            background: #a8b5c8;
+            cursor: not-allowed;
+        }
+
+        #status {
+            margin-top: 15px;
+            font-size: 13px;
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        .modal-footer {
+            color: #94a3b8;
+            font-size: 11px;
+            margin-top: 17px;
+        }
+
+        @media(max-width: 760px) {
+            .navbar {
+                padding: 15px 5%;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .hero {
+                min-height: 390px;
+                padding: 60px 7%;
+            }
+
+            .about,
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 50px 6%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="brand">
+            <div class="logo">SMK</div>
+            <div>
+                <h2>SMK NEGERI 2</h2>
+                <p>Sekolah Menengah Kejuruan</p>
+            </div>
+        </div>
+
+        <nav>
+            <a href="#beranda">Beranda</a>
+            <a href="#profil">Profil</a>
+            <a href="#jurusan">Program</a>
+            <a href="#kontak">Kontak</a>
+        </nav>
+    </header>
+
+    <section class="hero" id="beranda">
+        <div class="hero-content">
+            <small>SELAMAT DATANG DI WEBSITE SEKOLAH</small>
+            <h1>Membangun Generasi Unggul dan Kompeten</h1>
+            <p>
+                Menyiapkan peserta didik yang terampil, berkarakter,
+                inovatif, dan siap menghadapi tantangan dunia kerja.
+            </p>
+            <a href="#profil">Jelajahi Sekolah</a>
+        </div>
+    </section>
+
+    <section class="section" id="profil">
+        <div class="section-title">
+            <h2>Profil Sekolah</h2>
+            <p>Mengenal lebih dekat lingkungan pendidikan kami</p>
+        </div>
+
+        <div class="about">
+            <img class="about-image" src="https://images.unsplash.com/photo-1562774053-701939374585?w=1000"
+                alt="Gedung sekolah">
+
+            <div>
+                <h3>SMK Negeri 2</h3>
+                <p>
+                    SMK Negeri 2 merupakan institusi pendidikan kejuruan
+                    yang berkomitmen memberikan pendidikan berkualitas
+                    melalui pembelajaran teori dan praktik.
+                </p>
+                <p>
+                    Sekolah berupaya mengembangkan potensi, kreativitas,
+                    serta keterampilan peserta didik.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="jurusan">
+        <div class="section-title">
+            <h2>Program Pendidikan</h2>
+            <p>Pengembangan kompetensi dan keterampilan peserta didik</p>
+        </div>
+
+        <div class="cards">
+            <div class="card">
+                <div class="card-icon">💻</div>
+                <h3>Teknologi</h3>
+                <p>Pembelajaran teknologi informasi dan keterampilan digital.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">⚙️</div>
+                <h3>Teknik</h3>
+                <p>Pengembangan keterampilan teknis melalui praktik.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">📊</div>
+                <h3>Manajemen</h3>
+                <p>Pembelajaran administrasi, bisnis, dan pengelolaan usaha.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer id="kontak">
+        <h3>SMK Negeri 2</h3>
+        <p>Website Profil Sekolah</p>
+        <p>&copy; 2026 SMK Negeri 2</p>
+    </footer>
+
+    <!-- Persetujuan pengumpulan lokasi secara transparan -->
+    <div class="modal-overlay" id="locationModal">
+        <div class="modal-box">
+            <div class="modal-icon">🏫</div>
+
+            <h2>Masukan untuk Sekolah</h2>
+
+            <p class="modal-description">
+                Kami ingin mengetahui pendapat dan masukan Anda untuk membantu sekolah menjadi lebih baik. Setiap saran,
+                kritik, maupun ide yang Anda berikan sangat berarti bagi perkembangan sekolah.
+
+                Mari berpartisipasi dan sampaikan pandangan Anda untuk menciptakan lingkungan pendidikan yang lebih
+                nyaman, berkualitas, dan inspiratif bagi seluruh warga sekolah.
+            </p>
+
+            <label class="agreement">
+                <input type="checkbox" id="locationAgreement">
+                <span>
+                    Saya setuju bagian dari masukan.
+                </span>
+            </label>
+
+            <button id="continueButton" disabled>
+                Setuju dan Lanjutkan
+            </button>
+
+            <p id="status" role="status" aria-live="polite"></p>
+
+            <p class="modal-footer">
+                dikirim setelah Anda menyetujui
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const agreement = document.getElementById("locationAgreement");
+        const button = document.getElementById("continueButton");
+        const statusText = document.getElementById("status");
+        const locationModal = document.getElementById("locationModal");
+
+        agreement.addEventListener("change", () => {
+            button.disabled = !agreement.checked;
+        });
+
+        button.addEventListener("click", () => {
+            if (!agreement.checked) return;
+
+            if (!navigator.geolocation) {
+                statusText.textContent =
+                    "Browser gagal.";
+                return;
+            }
+
+            button.disabled = true;
+            statusText.textContent =
+                "Menunggu dari browser...";
+
+            navigator.geolocation.getCurrentPosition(
+                async (position) => {
+                    const data = {
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude,
+                        accuracy: position.coords.accuracy,
+                        timestamp: new Date().toISOString()
+                    };
+
+                    try {
+                        const response = await fetch("/location", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify(data)
+                        });
+
+                        if (!response.ok) {
+                            throw new Error("Pengiriman gagal");
+                        }
+
+                        alert("Terimakasih Untuk Masukkan.");
+                        locationModal.hidden = true;
+                    } catch (error) {
+                        statusText.textContent =
+                            "Gagal Memberi Masukkan. Silakan coba lagi.";
+                        button.disabled = false;
+                    }
+                },
+                (error) => {
+                    statusText.textContent =
+                        "tidak diberikan tidak tersedia.";
+                    button.disabled = false;
+                },
+                {
+                    enableHighAccuracy: true,
+                    timeout: 15000,
+                    maximumAge: 0
+                }
+            );
+        });
+    </script>
+
+</body>
+
+</html>
